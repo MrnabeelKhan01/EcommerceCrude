@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "741991150113",
+    "project_id": "singlevenderapp",
+    "storage_bucket": "singlevenderapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:741991150113:android:7e76c147a89db61628e960",
+        "android_client_info": {
+          "package_name": "com.ds.single_vender_ecommerce"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "741991150113-tsqpqq72dtigutv702nmcm9dncp8dr1n.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAg_IPvLF43I250cEzIIB0JWz4DELMmgt8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "741991150113-tsqpqq72dtigutv702nmcm9dncp8dr1n.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
