@@ -11,11 +11,11 @@ class CartModel {
     this.productDetails,
   });
 
-  String? uId;
+  String? uId; //User ID
   num? quantity;
   num? totalPrice;
   String? sortTime;
-  String? docId;
+  String? docId;  //Cart ID
   ProductModel? productDetails;
 
   CartModel.fromJson(Map<String, dynamic> json) {
@@ -35,7 +35,7 @@ class CartModel {
     data["quantity"] = quantity;
     data["totalPrice"] = totalPrice;
     data["sortTime"] = sortTime;
-    data["docID"] = docId;
+    data["docID"] = docID; //Here we pass docID
     if (productDetails != null) {
       data["productDetails"] =
           productDetails!.toJson(productDetails!.productId.toString());

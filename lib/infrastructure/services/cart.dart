@@ -33,7 +33,7 @@ class CartServices {
       {required String docId, required String uid}) async {
     return FirebaseFirestore.instance
         .collection('cartCollection')
-        .doc(docId)
+        .doc(uid)
         .collection("myCart")
         .doc(docId)
         .delete();

@@ -43,7 +43,7 @@ class CategoryBody extends StatelessWidget {
                                           height: 80,
                                           width: 80,
                                           child: Image.network(
-                                              categoryList[i].image.toString())),
+                                              categoryList[i].categoryImage.toString())),
                                       const SizedBox(
                                         width: 8,
                                       ),
@@ -53,13 +53,13 @@ class CategoryBody extends StatelessWidget {
                                         children: [
                                           CustomText(
                                             text:
-                                                categoryList[i].name.toString(),
+                                                categoryList[i].categoryName.toString(),
                                             fontSize: 16,
                                             fontWeight: FontWeight.w800,
                                           ),
                                           CustomText(
                                             text:
-                                                categoryList[i].categoryType.toString(),
+                                                categoryList[i].categoryDescription.toString(),
                                             fontSize: 14,
                                             fontWeight: FontWeight.w500,
                                           ),

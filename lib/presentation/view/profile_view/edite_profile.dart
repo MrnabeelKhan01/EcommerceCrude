@@ -20,7 +20,6 @@ class _EditProfileState extends State<EditProfile> {
   TextEditingController _nameController = TextEditingController();
   TextEditingController _addressController = TextEditingController();
   TextEditingController _numberController = TextEditingController();
-
   final UserServices _userServices = UserServices();
 
   @override
@@ -39,7 +38,6 @@ class _EditProfileState extends State<EditProfile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(

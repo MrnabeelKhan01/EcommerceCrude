@@ -22,6 +22,12 @@ class ProfileBody extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              Row(
+                mainAxisAlignment:MainAxisAlignment.center,
+                children: [
+                  Image.network(user.getUserData.profileImage.toString(),height:100,width:100,),
+                ],
+              ),
               CustomText(
                 text: user.getUserData.name.toString(),
                 fontSize: 16,

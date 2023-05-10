@@ -6,28 +6,28 @@ CategoryModel categoryModelFromJson(String str) =>
 
 class CategoryModel {
   CategoryModel({
-    this.name,
-    this.image,
-    this.categoryType,
+    this.categoryName,
+    this.categoryImage,
+    this.categoryDescription,
     this.categoryId,
   });
 
-  String? name;
-  String? image;
-  String? categoryType;
+  String? categoryName;
+  String? categoryImage;
+  String? categoryDescription;
   String? categoryId;
 
   factory CategoryModel.fromJson(Map<String, dynamic> json) => CategoryModel(
-        name: json["name"],
-        image: json["image"],
-        categoryType: json["categoryType"],
+    categoryName: json["categoryName"],
+    categoryImage: json["categoryImage"],
+    categoryDescription: json["categoryDescription"],
         categoryId: json["categoryId"],
       );
 
   Map<String, dynamic> toJson() => {
-        "name": name,
-        "image": image,
-        "categoryType": categoryType,
+        "categoryName": categoryName,
+        "categoryImage": categoryImage,
+        "categoryDescription": categoryDescription,
         "categoryId": categoryId,
       };
 }

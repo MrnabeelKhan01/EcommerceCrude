@@ -17,14 +17,31 @@ class ProductDetailsView extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 18.0),
             child: Column(
               children: [
-                const SizedBox(height:18,),
+                const SizedBox(
+                  height: 18,
+                ),
                 SizedBox(
-                    height:300,
-                    width:MediaQuery.of(context).size.width,
-                    child: Image.network(productModel.image.toString())),
-                const SizedBox(height:44,),
-                CustomText(text: productModel.name.toString(),fontSize:16,fontWeight: FontWeight.w600,),
-                CustomText(text: productModel.price.toString(),fontSize:16,fontWeight: FontWeight.w600,)
+                    height: 300,
+                    width: MediaQuery.of(context).size.width,
+                    child: Image.network(productModel.productImage.toString())),
+                const SizedBox(
+                  height: 44,
+                ),
+                CustomText(
+                  text: productModel.productName.toString(),
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
+                ),
+                CustomText(
+                  text: productModel.productPrice.toString(),
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
+                ),
+                CustomText(
+                  text: productModel.productDescription.toString(),
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
+                ),
               ],
             ),
           ),

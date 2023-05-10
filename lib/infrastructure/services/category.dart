@@ -14,9 +14,9 @@ class CategoryServices {
         .collection("categoryCollection")
         .doc(categoryModel.categoryId)
         .update({
-      "name": categoryModel.name,
-      "image": categoryModel.image,
-      "categoryType": categoryModel.categoryType
+      "name": categoryModel.categoryName,
+      "image": categoryModel.categoryImage,
+      "categoryType": categoryModel.categoryDescription
     });
   }
 

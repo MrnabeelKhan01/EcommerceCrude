@@ -4,13 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:single_vender_ecommerce/applications/cart_provider.dart';
 import 'package:single_vender_ecommerce/applications/user_provider.dart';
 import 'package:single_vender_ecommerce/applications/wrapper.dart';
-import 'package:single_vender_ecommerce/presentation/view/auth/sign_in/sign_in_view.dart';
-import 'package:single_vender_ecommerce/presentation/view/auth/sign_up/sign_up_view.dart';
-import 'package:single_vender_ecommerce/presentation/view/cart/cart_view.dart';
-import 'package:single_vender_ecommerce/presentation/view/categories/add_categories.dart';
-import 'package:single_vender_ecommerce/presentation/view/products/add_products.dart';
 
-import 'presentation/view/products/product_view.dart';
 
 void main()async{
   WidgetsFlutterBinding.ensureInitialized();

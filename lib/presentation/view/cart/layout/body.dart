@@ -22,74 +22,111 @@ class CartBody extends StatelessWidget {
     return SafeArea(
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 18.0),
-        child: Column(
-          children: [
-            StreamProvider.value(
-              value: _cartServices.cartStream(BuildContext, context),
-              initialData: [CartModel()],
-              builder: (context, child) {
-                List<CartModel> cartList = context.watch<List<CartModel>>();
-                return ListView.builder(
-                    itemCount: cartList.length,
-                    shrinkWrap: true,
-                    itemBuilder: (context, i) {
-                      // cartList.map((e) => log(e.toJson('docId').toString())).toList();
-                      return cartList.isNotEmpty
-                          ? Column(
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              StreamProvider.value(
+                value: _cartServices.cartStream(BuildContext, context),
+                initialData: [CartModel()],
+                builder: (context, child) {
+                  List<CartModel> cartList = context.watch<List<CartModel>>();
+                  return ListView.builder(
+                      itemCount: cartList.length,
+                      shrinkWrap: true,
+                      itemBuilder: (context, i) {
+                        return cartList.isNotEmpty
+                            ? Column(
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
                               children: [
-                                CustomText(text: 'Name'),
-                                CustomText(
-                                    text: cartList[i]
-                                        .productDetails!
-                                        .name
-                                        .toString()),
-                                CustomText(text: 'Price'),
-                                CustomText(
-                                    text: cartList[i]
-                                        .productDetails!
-                                        .price
-                                        .toString()),
-                                CustomText(text: 'Quantity'),
-                                CustomText(
-                                    text: cartList[i].quantity.toString()),
-                                CustomText(text: 'Total Price'),
-                                CustomText(
-                                    text: cartList[i].totalPrice.toString()),
-                                Row(
-                                  children: [
-                                    IconButton(
-                                        onPressed: () {
-                                          // _cartServices
-                                          //     .incrementProductQuantity(
-                                          //         updatePrice:cartList[i]
-                                          //             .productDetails!
-                                          //             .price,
-                                          //         uid: user.getUserData.docId
-                                          //             .toString(),
-                                          //         docID: cartList[i]
-                                          //             .docId
-                                          //             .toString());
-                                        },
-                                        icon: const Icon(Icons.remove)),
-                                    IconButton(
-                                        onPressed: () {},
-                                        icon: const Icon(Icons.add)),
-                                  ],
-                                ),
-                                AppButton(onPressed: (){
-                                  OrderServices().placeOrder(OrderModel(
-                                    cart:cartList,
-                                    user:user.getUserData,
-                                    totalBill:'400'
-                                  ));
-                                }, btnLabel:'place order')
+                                IconButton(
+                                    onPressed: () {
+                                      _cartServices.removeFromCart(BuildContext,
+                                          docId: cartList[i].docId.toString(),
+                                          uid: user.getUserData.docId
+                                              .toString());
+                                    },
+                                    icon: const Icon(
+                                      Icons.delete,
+                                      color: Colors.red,
+                                    ))
                               ],
-                            )
-                          : const Text('No data');
-                    });
-              },
-            )
-          ],
+                            ),
+                            Image.network(
+                              cartList[i]
+                                  .productDetails!
+                                  .productImage
+                                  .toString(),
+                              height: 100,
+                              width: 100,
+                            ),
+                            CustomText(text: 'Name'),
+                            CustomText(
+                                text: cartList[i]
+                                    .productDetails!
+                                    .productName
+                                    .toString()),
+                            CustomText(text: 'Price'),
+                            CustomText(
+                                text: cartList[i]
+                                    .productDetails!
+                                    .productPrice
+                                    .toString()),
+                            CustomText(text: 'Quantity'),
+                            CustomText(
+                                text: cartList[i].quantity.toString()),
+                            CustomText(text: 'Total Price'),
+                            CustomText(
+                                text: cartList[i].totalPrice.toString()),
+                            Row(
+                              children: [
+                                IconButton(
+                                    onPressed: () {
+                                      _cartServices
+                                          .decrementProductQuantity(
+                                          updatePrice: cartList[i]
+                                              .productDetails!
+                                              .productPrice!,
+                                          uid: user.getUserData.docId
+                                              .toString(),
+                                          docId: cartList[i]
+                                              .docId
+                                              .toString());
+                                    },
+                                    icon: const Icon(Icons.remove)),
+                                IconButton(
+                                    onPressed: () {
+                                      _cartServices
+                                          .incrementProductQuantity(
+                                          updatePrice: cartList[i]
+                                              .productDetails!
+                                              .productPrice!,
+                                          uid: user.getUserData.docId
+                                              .toString(),
+                                          docID: cartList[i]
+                                              .docId
+                                              .toString());
+                                    },
+                                    icon: const Icon(Icons.add)),
+                              ],
+                            ),
+                            AppButton(
+                                onPressed: () {
+                                  OrderServices().placeOrder(OrderModel(
+                                      cart: cartList,
+                                      user: user.getUserData,
+                                      totalBill: '400'));
+                                },
+                                btnLabel: 'place order')
+                          ],
+                        )
+                            : const Text('No data');
+                      });
+                },
+              )
+            ],
+          ),
         ),
       ),
     );

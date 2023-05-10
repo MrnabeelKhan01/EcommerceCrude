@@ -1,5 +1,9 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
+import 'package:single_vender_ecommerce/applications/upload_file.dart';
 import 'package:single_vender_ecommerce/applications/user_provider.dart';
 import '../../../../../configurations/frontend_configs.dart';
 import '../../../../../infrastructure/models/user.dart';
@@ -29,10 +33,21 @@ class _SignUpBodyState extends State<SignUpBody> {
   bool isLoading = false;
   final AuthServices _authServices = AuthServices();
   final UserServices _userServices = UserServices();
+  File? myImage;
+
+  final ImagePicker _picker = ImagePicker();
+
+  Future pickImage() async {
+    final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+    final temporaryImage = File(image!.path);
+    setState(() {
+      myImage = temporaryImage;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    var userProvider=Provider.of<UserProvider>(context,listen: false);
+    var userProvider = Provider.of<UserProvider>(context, listen: false);
     return SafeArea(
       child: isLoading
           ? Center(
@@ -59,6 +74,23 @@ class _SignUpBodyState extends State<SignUpBody> {
                     const SizedBox(
                       height: 30,
                     ),
+                    Row(
+                      mainAxisAlignment:MainAxisAlignment.center,
+                      children: [
+                        InkWell(
+                          onTap:(){
+                            pickImage();
+                          },
+                          child: CircleAvatar(
+                            radius:50,
+                            child: myImage != null
+                                ? Image.file(myImage!)
+                                : const Icon(Icons.person),
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height:18,),
                     CustomTextField(
                         isSecure: false,
                         controller: _nameController,
@@ -116,25 +148,25 @@ class _SignUpBodyState extends State<SignUpBody> {
                     ),
                     AppButton(
                         onPressed: () {
-                          if (
-                              _emailController.text.isNotEmpty &&
+                          if (_emailController.text.isNotEmpty &&
                               _passwordController.text.isNotEmpty) {
                             setState(() {
                               isLoading = true;
                             });
+                            UploadFileServices().getUrl(context, file:myImage!).then((value) =>
                             _authServices
                                 .createAccount(
                                     email: _emailController.text,
                                     password: _passwordController.text)
-                                .then((value) {
-                              _userServices.createUser(
-                                  UserModel(
-                                name:_nameController.text,
+                                .then((data) {
+                              _userServices.createUser(UserModel(
+                                name: _nameController.text,
                                 email: _emailController.text,
-                                docId: value.user!.uid,
+                                docId: data.user!.uid,
                                 phoneNumber: _numberController.text,
                                 address: _addressController.text,
-                              ));
+                                profileImage:value,
+                              ));}).then((value) {
                               setState(() {
                                 isLoading = false;
                               });
@@ -142,7 +174,7 @@ class _SignUpBodyState extends State<SignUpBody> {
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) =>
-                                      const SignInView()));
+                                          const SignInView()));
                             }).then((user) {
                               if (user != null) {
                                 setState(() {
@@ -152,7 +184,7 @@ class _SignUpBodyState extends State<SignUpBody> {
                               } else {
                                 print('Account Created failed');
                               }
-                            });
+                            }));
                           } else {
                             print('Please Fill the Fields');
                           }

@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:single_vender_ecommerce/presentation/elements/custom_appbar.dart';
 import 'package:single_vender_ecommerce/presentation/elements/custom_text.dart';
-import 'package:single_vender_ecommerce/presentation/view/products/add_products.dart';
 import 'package:single_vender_ecommerce/presentation/view/products/layout/body.dart';
 
 class ProductView extends StatelessWidget {
@@ -13,19 +11,6 @@ class ProductView extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        actions: [
-          IconButton(
-              onPressed: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const AddProductsView()));
-              },
-              icon: const Icon(
-                Icons.add,
-                color: Colors.black,
-              ))
-        ],
         title: CustomText(
           text: 'Products',
           fontWeight: FontWeight.w600,

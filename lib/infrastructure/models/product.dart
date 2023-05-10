@@ -1,40 +1,44 @@
+
 import 'dart:convert';
 
-ProductModel productModelFromJson(String str) =>
-    ProductModel.fromJson(json.decode(str));
+ProductModel productModelFromJson(String str) => ProductModel.fromJson(json.decode(str));
 
 class ProductModel {
   ProductModel({
-    this.name,
-    this.price,
-    this.image,
-    this.rating,
+    this.productName,
+    this.productDescription,
+    this.productPrice,
+    this.productRating,
+    this.productImage,
     this.productId,
     this.categoryId,
   });
 
-  String? name;
-  String? price;
-  String? image;
-  num? rating;
-  String? productId;
-  String? categoryId;
+  String ?productName;
+  String ?productDescription;
+  num ?productPrice;
+  num ?productRating;
+  String ?productImage;
+  String ?productId;
+  String ?categoryId;
 
   factory ProductModel.fromJson(Map<String, dynamic> json) => ProductModel(
-        name: json["name"],
-        price: json["price"],
-        image: json["image"],
-        rating: json["rating"],
-        productId: json["productId"],
-        categoryId: json["categoryId"],
-      );
+    productName: json["productName"],
+    productDescription: json["productDescription"],
+    productPrice: json["productPrice"],
+    productRating: json["productRating"],
+    productImage: json["productImage"],
+    productId: json["productID"],
+    categoryId: json["categoryID"],
+  );
 
   Map<String, dynamic> toJson(String productId) => {
-        "name": name,
-        "price": price,
-        "image": image,
-        "rating": 0,
-        "productId": productId,
-        "categoryId": categoryId,
-      };
+    "productName": productName,
+    "productDescription": productDescription,
+    "productPrice": productPrice,
+    "productRating": 0,
+    "productImage": productImage,
+    "productID": productId,
+    "categoryID": categoryId,
+  };
 }
