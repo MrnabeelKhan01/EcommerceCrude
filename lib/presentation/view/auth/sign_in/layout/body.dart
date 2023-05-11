@@ -28,7 +28,6 @@ class _SignInBodyState extends State<SignInBody> {
 
   @override
   Widget build(BuildContext context) {
-    var userProvider=Provider.of<UserProvider>(context,listen:false);
     return SafeArea(
       child: isLoading
           ? const Center(

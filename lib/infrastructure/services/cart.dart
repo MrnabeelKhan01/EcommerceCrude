@@ -44,6 +44,7 @@ class CartServices {
       {required num updatePrice,
       required String uid,
       required String docID}) async {
+
     return FirebaseFirestore.instance
         .collection("cartCollection")
         .doc(uid)
@@ -60,14 +61,15 @@ class CartServices {
       {required num updatePrice,
       required String uid,
       required String docId}) async {
+    print(docId);
     return FirebaseFirestore.instance
         .collection('cartCollection')
         .doc(uid)
         .collection("myCart")
-        .doc(uid)
+        .doc(docId)
         .update({
       "quantity": FieldValue.increment(-1),
-      "totalPrice": FieldValue.increment(updatePrice)
+      "totalPrice": FieldValue.increment(-updatePrice)
     });
   }
 
@@ -81,4 +83,15 @@ class CartServices {
         .map((event) =>
             event.docs.map((e) => CartModel.fromJson(e.data())).toList());
   }
+  Future<void> emptyMyCart(
+      {required String docID, required String userID}) async {
+    print("User ID : $userID");
+    return FirebaseFirestore.instance
+        .collection('cartCollection')
+        .doc(userID)
+        .collection('myCart')
+        .doc(docID)
+        .delete();
+  }
+
 }

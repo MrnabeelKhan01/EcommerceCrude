@@ -10,19 +10,35 @@ import 'package:single_vender_ecommerce/infrastructure/services/cart.dart';
 import 'package:single_vender_ecommerce/infrastructure/services/order.dart';
 import 'package:single_vender_ecommerce/presentation/elements/app_button.dart';
 import 'package:single_vender_ecommerce/presentation/elements/custom_text.dart';
+import 'package:single_vender_ecommerce/presentation/view/order/order_view.dart';
 
-class CartBody extends StatelessWidget {
-  CartBody({Key? key}) : super(key: key);
+class CartBody extends StatefulWidget {
+  const CartBody({Key? key}) : super(key: key);
+
+  @override
+  State<CartBody> createState() => _CartBodyState();
+}
+
+class _CartBodyState extends State<CartBody> {
   final CartServices _cartServices = CartServices();
+
+  bool isLoading=false;
 
   @override
   Widget build(BuildContext context) {
     var user = Provider.of<UserProvider>(context, listen: false);
-    var cartProvider = Provider.of<CartProvider>(context, listen: false);
     return SafeArea(
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 18.0),
-        child: SingleChildScrollView(
+        child:isLoading?const Center(
+          child: SizedBox(
+            height:50,
+            width:50,
+            child: CircularProgressIndicator(
+              color:Colors.blue,
+            ),
+          ),
+        ): SingleChildScrollView(
           child: Column(
             children: [
               StreamProvider.value(
@@ -33,6 +49,7 @@ class CartBody extends StatelessWidget {
                   return ListView.builder(
                       itemCount: cartList.length,
                       shrinkWrap: true,
+                      physics:NeverScrollableScrollPhysics(),
                       itemBuilder: (context, i) {
                         return cartList.isNotEmpty
                             ? Column(
@@ -112,11 +129,27 @@ class CartBody extends StatelessWidget {
                               ],
                             ),
                             AppButton(
-                                onPressed: () {
-                                  OrderServices().placeOrder(OrderModel(
+                                onPressed: () async {
+                                  await OrderServices()
+                                      .placeOrder(OrderModel(
                                       cart: cartList,
                                       user: user.getUserData,
-                                      totalBill: '400'));
+                                      totalBill: cartList[i].totalPrice,
+                                      adminID: '1'))
+                                      .then((value) async {
+                                    cartList
+                                        .map((e) =>
+                                        _cartServices.emptyMyCart(docID
+                                            :e.docId.toString(),
+                                            userID: user.getUserData.docId
+                                                .toString()))
+                                        .toList();
+                                  }).catchError((e) {
+                                    print("Error occurred!");
+                                  }).then((value) {
+                                    Navigator.push(context, MaterialPageRoute(
+                                        builder: (context) => const OrderView()));
+                                  });
                                 },
                                 btnLabel: 'place order')
                           ],

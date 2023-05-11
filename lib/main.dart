@@ -5,6 +5,8 @@ import 'package:single_vender_ecommerce/applications/cart_provider.dart';
 import 'package:single_vender_ecommerce/applications/user_provider.dart';
 import 'package:single_vender_ecommerce/applications/wrapper.dart';
 
+import 'presentation/view/order/order_view.dart';
+
 
 void main()async{
   WidgetsFlutterBinding.ensureInitialized();

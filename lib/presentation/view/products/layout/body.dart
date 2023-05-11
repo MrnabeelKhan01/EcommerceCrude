@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:single_vender_ecommerce/applications/cart_provider.dart';
 import 'package:single_vender_ecommerce/applications/user_provider.dart';
 import 'package:single_vender_ecommerce/infrastructure/services/cart.dart';
 import 'package:single_vender_ecommerce/infrastructure/services/product.dart';
@@ -18,6 +19,7 @@ int quantity=1;
   @override
   Widget build(BuildContext context) {
     var userProvider = Provider.of<UserProvider>(context);
+    var cartProvider = Provider.of<CartProvider>(context);
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 18.0),
       child: SingleChildScrollView(

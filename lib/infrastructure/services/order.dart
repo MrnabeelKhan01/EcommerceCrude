@@ -7,11 +7,12 @@ class OrderServices {
     DocumentReference df =
         FirebaseFirestore.instance.collection("orderCollection").doc();
     return await df.set(orderModel.toJson(
-        docId: orderModel.user!.docId.toString(), orderId: df.id.toString()));
+        userID: orderModel.user!.docId.toString(), orderID: df.id.toString()));
   }
 
   //Get myOrder
   Stream<List<OrderModel>> streamMyOrder(String myId) {
+    print(myId);
     return FirebaseFirestore.instance
         .collection("orderCollection")
         .where('user.docId', isEqualTo: myId)
