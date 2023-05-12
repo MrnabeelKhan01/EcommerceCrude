@@ -152,6 +152,7 @@ class ProductBody extends StatelessWidget {
                                                 },
                                                 icon: const Icon(Icons.add))
                                           ],
+
                                         ),
                                         RatingBarIndicator(
                                           rating: rating,
